@@ -85,7 +85,7 @@
 
   function createBoard() {
     const gameBoard = document.querySelector('.game-board');
-    gameBoard.innerHTML = ''; // Reset board
+    gameBoard.innerHTML = ''; 
     shuffle(cardSymbols);
     cardSymbols.forEach(symbol => {
       const cardElement = document.createElement('div');
