@@ -64,17 +64,28 @@
 <button id="reset-button">Reset Game</button>
 <script>
   const cardSymbols = [
-  "🐵", "🐵", "🐶", "🐶", "🐱", "🐱",
-  "🐭", "🐭", "🐹", "🐹", "🐰", "🐰",
-  "🐸", "🐸", "🐯", "🐯", "🦁", "🦁",
-  "🐮", "🐮", "🐷", "🐷", "🦊", "🦊",
-  "🐻", "🐻", "🐼", "🐼", "🦝", "🦝",
-  "🐔", "🐔", "🐙", "🐙", "🐧", "🐧"
-];
+    "🐵", "🐵", "🐶", "🐶", "🐱", "🐱",
+    "🐭", "🐭", "🐹", "🐹", "🐰", "🐰",
+    "🐸", "🐸", "🐯", "🐯", "🦁", "🦁",
+    "🐮", "🐮", "🐷", "🐷", "🦊", "🦊",
+    "🐻", "🐻", "🐼", "🐼", "🦝", "🦝",
+    "🐔", "🐔", "🐙", "🐙", "🐧", "🐧"
+  ];
+
+  const win = [
+    "", "", "", "", "", "",
+    "", "", "", "", "", "",
+    "M", "A", "N", "T", "A", "P",
+    "", "", "", "", "", "",
+    "", "", "", "", "", "",
+    "", "", "", "", "", ""
+  ];
 
   let firstCard = null;
   let secondCard = null;
   let lockBoard = false;
+  let matchedPairs = 0;
+  const totalPairs = cardSymbols.length / 2;
 
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -85,8 +96,11 @@
 
   function createBoard() {
     const gameBoard = document.querySelector('.game-board');
-    gameBoard.innerHTML = ''; 
+    gameBoard.innerHTML = '';
     shuffle(cardSymbols);
+    matchedPairs = 0;
+    [firstCard, secondCard, lockBoard] = [null, null, false];
+
     cardSymbols.forEach(symbol => {
       const cardElement = document.createElement('div');
       cardElement.classList.add('card');
@@ -97,8 +111,7 @@
   }
 
   function flipCard() {
-    if (lockBoard) return;
-    if (this === firstCard) return;
+    if (lockBoard || this === firstCard || this.classList.contains('flipped')) return;
 
     this.classList.add('flipped');
     this.textContent = this.dataset.icon;
@@ -123,7 +136,19 @@
   function disableCards() {
     firstCard.removeEventListener('click', flipCard);
     secondCard.removeEventListener('click', flipCard);
+    matchedPairs++;
     resetBoard();
+
+    if (matchedPairs === totalPairs) {
+      setTimeout(() => {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+          card.textContent = win[index];
+          card.classList.add('flipped');
+        });
+        alert("Selamat! Kamu menang!");
+      }, 500);
+    }
   }
 
   function unflipCards() {
