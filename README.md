@@ -10,5 +10,21 @@ A fun and interactive memory card game built using **HTML**, **CSS**, and **Java
 - 📱 Responsive design for mobile and desktop
 - 🔁 Restart button to play again
 
+## 📦 Tech Stack
+
+- **HTML**: Core structure and layout
+- **CSS**: Styling and animations
+- **JavaScript** *(optional)*: Game logic (if implemented)
+
+## 📁 File Overview
+
+|      File     | Description |
+|---------------|-------------|
+| `index.html`  | Main html   |
+| `style.css`   | Style       |
+| `script.js`   | Script      |
+
 ## 🔍 Review
+
+https://baimpriyatna.github.io/Memory-Card-Game
 
