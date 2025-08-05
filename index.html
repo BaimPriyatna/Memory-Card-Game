@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Memory Card Game</title>
-<style>
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h1>Memory Card Game</h1>
@@ -13,115 +12,6 @@
   <!-- Kartu-kartu akan di-generate secara dinamis di sini -->
 </div>
 <button id="reset-button">Reset Game</button>
-<script>
-  const cardSymbols = [
-    "🐵", "🐵", "🐶", "🐶", "🐱", "🐱",
-    "🐭", "🐭", "🐹", "🐹", "🐰", "🐰",
-    "🐸", "🐸", "🐯", "🐯", "🦁", "🦁",
-    "🐮", "🐮", "🐷", "🐷", "🦊", "🦊",
-    "🐻", "🐻", "🐼", "🐼", "🦝", "🦝",
-    "🐔", "🐔", "🐙", "🐙", "🐧", "🐧"
-  ];
-
-  const win = [
-    "", "", "", "", "", "",
-    "", "", "", "", "", "",
-    "M", "A", "N", "T", "A", "P",
-    "", "", "", "", "", "",
-    "", "", "", "", "", "",
-    "", "", "", "", "", ""
-  ];
-
-  let firstCard = null;
-  let secondCard = null;
-  let lockBoard = false;
-  let matchedPairs = 0;
-  const totalPairs = cardSymbols.length / 2;
-
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
-
-  function createBoard() {
-    const gameBoard = document.querySelector('.game-board');
-    gameBoard.innerHTML = '';
-    shuffle(cardSymbols);
-    matchedPairs = 0;
-    [firstCard, secondCard, lockBoard] = [null, null, false];
-
-    cardSymbols.forEach(symbol => {
-      const cardElement = document.createElement('div');
-      cardElement.classList.add('card');
-      cardElement.dataset.icon = symbol;
-      cardElement.addEventListener('click', flipCard);
-      gameBoard.appendChild(cardElement);
-    });
-  }
-
-  function flipCard() {
-    if (lockBoard || this === firstCard || this.classList.contains('flipped')) return;
-
-    this.classList.add('flipped');
-    this.textContent = this.dataset.icon;
-
-    if (!firstCard) {
-      firstCard = this;
-      return;
-    }
-
-    secondCard = this;
-    checkForMatch();
-  }
-
-  function checkForMatch() {
-    if (firstCard.dataset.icon === secondCard.dataset.icon) {
-      disableCards();
-    } else {
-      unflipCards();
-    }
-  }
-
-  function disableCards() {
-    firstCard.removeEventListener('click', flipCard);
-    secondCard.removeEventListener('click', flipCard);
-    matchedPairs++;
-    resetBoard();
-
-    if (matchedPairs === totalPairs) {
-      setTimeout(() => {
-        const cards = document.querySelectorAll('.card');
-        cards.forEach((card, index) => {
-          card.textContent = win[index];
-          card.classList.add('flipped');
-        });
-        alert("Selamat! Kamu menang!");
-      }, 500);
-    }
-  }
-
-  function unflipCards() {
-    lockBoard = true;
-    setTimeout(() => {
-      firstCard.classList.remove('flipped');
-      secondCard.classList.remove('flipped');
-      firstCard.textContent = '';
-      secondCard.textContent = '';
-      resetBoard();
-    }, 500);
-  }
-
-  function resetBoard() {
-    [firstCard, secondCard, lockBoard] = [null, null, false];
-  }
-
-  document.getElementById('reset-button').addEventListener('click', () => {
-    createBoard();
-  });
-
-  createBoard();
-</script>
+<script src="script.js"></script>
 </body>
 </html>
