@@ -14,7 +14,7 @@ A fun and interactive memory card game built using **HTML**, **CSS**, and **Java
 
 - **HTML**: Core structure and layout
 - **CSS**: Styling and animations
-- **JavaScript** *(optional)*: Game logic (if implemented)
+- **JavaScript** : Game logic
 
 ## 📁 File Overview
 
